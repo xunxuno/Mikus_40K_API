@@ -7,3 +7,4 @@ router.get('/products', getProducts);
 router.get('/products/:id', getProduct);
 
 export default router;
+//fin
