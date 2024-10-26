@@ -1,4 +1,4 @@
-create database miku_40k
+create database miku_40k;
 
 use miku_40k;
 
