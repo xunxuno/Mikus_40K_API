@@ -1,4 +1,3 @@
-//import { RowDataPacket } from 'mysql2';
 import pool from '../config/db';
 
 export interface User {
@@ -13,5 +12,10 @@ export interface User {
 //Function to Add a new user
 export const createUser = async (user: User): Promise<void> => {
     const { userName, email, password } = user;
-    await pool.query('INSERT INTO users (userName, email, password) VALUES (?, ?, ?)', [userName, email, password]);
+    try {
+        await pool.query('INSERT INTO users (userName, email, password) VALUES (?, ?, ?)', [userName, email, password]);
+    } catch (error) {
+        console.error('Error at adding new user', error);
+        throw error;
+    }
   };
