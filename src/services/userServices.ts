@@ -1,6 +1,6 @@
 import {createUser} from '../models/userModel';
 
-async function registrar(name: string, email: string, password: string): Promise<void> {
+async function addUser(name: string, email: string, password: string): Promise<void> {
     try {
         await createUser({ userName: name, email, password });
     } catch (error: unknown) {
@@ -14,4 +14,4 @@ async function registrar(name: string, email: string, password: string): Promise
 }
 
 
-export default registrar;
+export default addUser;

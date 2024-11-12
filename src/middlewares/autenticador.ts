@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 
 interface CustomRequest extends Request {
-    usuario?: string | JwtPayload;
+    user?: string | JwtPayload;
 }
 
 export function verificarToken(req: CustomRequest, res: Response, next: NextFunction): Response | void {
@@ -17,23 +17,23 @@ export function verificarToken(req: CustomRequest, res: Response, next: NextFunc
         return res.status(401).json({ mensaje: 'Malformed token' });
     }
 
-    jwt.verify(token[1], process.env.RSA_PRIVATE_KEY as string, { algorithms: ['RS256'] }, (err, usuario) => {
+    jwt.verify(token[1], process.env.RSA_PRIVATE_KEY as string, { algorithms: ['RS256'] }, (err, user) => {
         if (err) {
             return res.status(403).json({ mensaje: 'Invalid token' });
         }
-        req.usuario = usuario;
+        req.user = user;
         next();
     });
 }
 
-export function verificarDatos(dataSegura: string): { nombre?: string; email?: string; password?: string } {
-    console.log("DataSegura recibida:", dataSegura);
-    const partes = dataSegura.split(',');
-    const resultado: { nombre?: string; email?: string; password?: string } = {};
+export function verificarDatos(secureData: string): { userName?: string; email?: string; password?: string } {
+    console.log("secureData received:", secureData);
+    const partes = secureData.split(',');
+    const resultado: { userName?: string; email?: string; password?: string } = {};
 
     partes.forEach((parte, index) => {
         if (parte) {
-            resultado[index === 0 ? 'nombre' : index === 1 && partes.length > 2 ? 'email' : 'password'] = parte;
+            resultado[index === 0 ? 'userName' : index === 1 && partes.length > 2 ? 'email' : 'password'] = parte;
         }
     });
 
