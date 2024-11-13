@@ -6,20 +6,23 @@ interface CustomRequest extends Request {
     user?: string | JwtPayload;
 }
 
-export function verificarToken(req: CustomRequest, res: Response, next: NextFunction): Response | void {
+export function verificarToken(req: CustomRequest, res: Response, next: NextFunction): void {
     const tokenHeader = req.headers['authorization'];
     if (!tokenHeader) {
-        return res.status(401).json({ mensaje: 'Token not provided' });
+        res.status(401).json({ mensaje: 'Token not provided' });
+        return;
     }
 
     const token = tokenHeader.split(' ');
     if (token.length !== 2) {
-        return res.status(401).json({ mensaje: 'Malformed token' });
+        res.status(401).json({ mensaje: 'Malformed token' });
+        return;
     }
 
     jwt.verify(token[1], process.env.RSA_PRIVATE_KEY as string, { algorithms: ['RS256'] }, (err, user) => {
         if (err) {
-            return res.status(403).json({ mensaje: 'Invalid token' });
+            res.status(403).json({ mensaje: 'Invalid token' });
+            return;
         }
         req.user = user;
         next();

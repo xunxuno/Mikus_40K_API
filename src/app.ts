@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import productRoutes from './routes/routes';
+import userRoutes from './routes/routes';
 
 // Cargar variables de entorno
 dotenv.config();
@@ -12,6 +13,8 @@ const port = process.env.PORT || 3002;
 app.use(express.json());
 
 app.use('/api', productRoutes);
+app.use('/api', productRoutes);
+app.use('/api', userRoutes); 
 
 
 // Iniciar servidor
