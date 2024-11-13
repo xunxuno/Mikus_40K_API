@@ -18,6 +18,17 @@ export const createUser = async (user: User): Promise<void> => {
     }
   };
 
+  // Function to get a user by their name (login)
+export const getUserByName = async (userName: string): Promise<User | undefined> => {
+    try {
+        const [results]: any = await pool.query('SELECT * FROM Users WHERE userName = ?', [userName]);
+        return results.length > 0 ? results[0] : undefined;
+    } catch (error) {
+        console.error('Error at getting user by name', error);
+        throw error;
+    }
+};
+
   /* POSTMAN FORMAT for POST
   {
   "secureData": {

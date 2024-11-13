@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { comparePassword } from '../middlewares/autenticador';
-import addUser from '../services/userServices';
+import {addUser, getUserByUsername} from '../services/userServices';
 import {SecureData} from '../models/secureDataModel';
+import { User } from '../models/userModel';
 
 
 export async function addNewUser(req: Request, res: Response): Promise<Response | void> {
@@ -21,47 +22,47 @@ export async function addNewUser(req: Request, res: Response): Promise<Response 
   }
 }
 
-/*export async function loginUsuario(req: Request, res: Response): Promise<Response | void> {
-  const { dataSegura } = req.body as { dataSegura: DataSegura };
+export async function loginUsuario(req: Request, res: Response): Promise<Response | void> {
+    const { secureData } = req.body as { secureData: SecureData };
 
   try {
-      console.log('Intentando obtener usuario por nombre:', dataSegura.userName);
-      const usuario = await _obtenerUsuarioPorNombre(dataSegura.userName);
+      console.log('Trying to get user by name:', secureData.userName);
+      const user = await getUserByUsername(secureData.userName);
 
-      if (!usuario) {
-          console.log('Usuario no encontrado');
-          return res.status(404).send('Usuario incorrecto');
+      if (!user) {
+          console.log('User not found');
+          return res.status(404).send('Incorrect user');
       }
 
-      console.log('Usuario encontrado:', usuario);
+      console.log('User Found:', user);
 
-      const validPassword = await comparePassword(dataSegura.password, usuario.password_hash);
+      const validPassword = await comparePassword(secureData.password, user.password);
 
       if (!validPassword) {
-          console.log('Contraseña incorrecta');
-          return res.status(404).send('Contraseña incorrecta');
+          console.log('Incorrect password');
+          return res.status(404).send('Incorrect password');
       } else {
-          console.log('Contraseña correcta, generando token');
+          console.log('Password correct, generating token');
           const token = jwt.sign(
-              { id: usuario.id, nombre: usuario.nombre },
+              { id: user.id, nombre: user.userName },
               process.env.JWT_SECRET as string,
               { expiresIn: '1h' }
           );
-          console.log('Retornando token y userId:', { token, userId: usuario.id });
-          return res.status(200).json({ token, userId: usuario.id });
+          console.log('Returning token and userId:', { token, userId: user.id });
+          return res.status(200).json({ token, userId: user.id });
       }
   } catch (error) {
-      console.error('Error al logear usuario:', error);
-      return res.status(500).send('Error interno del servidor');
+      console.error('Error logging in user:', error);
+      return res.status(500).send('Internal Server Error');
   }
 }
 
-async function _obtenerUsuarioPorNombre(nombre: string): Promise<Usuario | null> {
+async function _getUserByUsername(userName: string): Promise<User | undefined> {
   try {
-      const usuario = await obtenerPorNombre(nombre);
-      return usuario;
+      const user = await getUserByUsername(userName);
+      return user;
   } catch (error) {
-      console.error('Error al obtener usuario por nombre:', error);
-      throw error; // Lanzar el error para que pueda ser capturado en loginUsuario
+      console.error('Error getting user by name:', error);
+      throw error; // Throw the error so it can be caught in loginUser
   }
-}*/
+}
