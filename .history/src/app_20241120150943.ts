@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import productRoutes from './routes/routes';
 import userRoutes from './routes/routes';
-import cookieParser from 'cookie-parser';
 
 // Cargar variables de entorno
 dotenv.config();
@@ -24,9 +23,6 @@ app.use(cors(corsOptions));
 
 // Middleware para procesar JSON
 app.use(express.json());
-
-// Usar cookie-parser para leer las cookies
-app.use(cookieParser()); 
 
 // Rutas
 app.use('/api', productRoutes);

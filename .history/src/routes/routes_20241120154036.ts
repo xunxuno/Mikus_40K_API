@@ -8,13 +8,13 @@ const router = Router();
 router.get('/products', getProducts);
 router.get('/products/:id', getProduct);
 
-/*router.post('/singIn', verificarToken, (req, res) => {
-    addNewUser(req, res);
-});*/
-
-router.post('/singIn', (req, res) => {
+router.post('/singIn', verificarToken, (req, res) => {
     addNewUser(req, res);
 });
+/*
+router.post('/singIn', (req, res) => {
+    addNewUser(req, res);
+});*/
 router.post('/singUp', verificarToken, (req, res) => {
     loginUsuario(req, res);
 });

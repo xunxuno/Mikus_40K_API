@@ -13,7 +13,7 @@ export function verificarToken(req: CustomRequest, res: Response, next: NextFunc
   
   if (!token) {
     // Si no hay token, respondemos con un 401 y retornamos para evitar que continúe la ejecución
-    res.status(401).json({ mensaje: 'Token not provided' });
+    res.status(401).json({ mensaje: 'Token not provided sss' });
     return;
   }
 
