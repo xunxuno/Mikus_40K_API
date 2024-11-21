@@ -1,4 +1,4 @@
-import {User ,createUser, getUserByEmail} from '../models/userModel';
+import {User ,createUser, getUserByName} from '../models/userModel';
 
 async function addUser(name: string, email: string, password: string): Promise<void> {
     try {
@@ -13,12 +13,12 @@ async function addUser(name: string, email: string, password: string): Promise<v
     }
 }
 
-async function getUserByUserEmail(email: string): Promise<User | undefined> {
+async function getUserByUsername(name: string): Promise<User | undefined> {
     try {
-        return await getUserByEmail(email);
+        return await getUserByName(name);
     } catch (error: unknown) {
         if (error instanceof Error) {
-            console.error('Error when fetching user by email in the service:', error.message);
+            console.error('Error when fetching user by name in the service:', error.message);
         } else {
             console.error('Unknown error:', error);
         }
@@ -27,4 +27,4 @@ async function getUserByUserEmail(email: string): Promise<User | undefined> {
 }
 
 
-export  { addUser, getUserByUserEmail };
+export  { addUser, getUserByUsername };

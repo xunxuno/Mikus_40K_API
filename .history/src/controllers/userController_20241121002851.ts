@@ -37,6 +37,7 @@ export async function loginUsuario(req: Request, res: Response): Promise<Respons
 
       console.log('User Found:', user);
 
+      console.log('secureData:', secureData.password, 'UserPassword: ',user.password );
 
       const validPassword = await comparePassword(secureData.password, user.password);
 

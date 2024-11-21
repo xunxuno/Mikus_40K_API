@@ -15,7 +15,7 @@ router.get('/products/:id', getProduct);
 router.post('/singIn', (req, res) => {
     addNewUser(req, res);
 });
-router.get('/singUp', (req, res) => {
+router.post('/singUp', (req, res) => {
     loginUsuario(req, res);
 });
 

@@ -7,13 +7,6 @@ export interface User {
     password: string;
 }
 
-export interface DatabaseUser {
-    id?: number;
-    userName: string;
-    email: string;
-    password_hash: string;
-}
-
 //Function to Add a new user
 export const createUser = async (user: User): Promise<void> => {
     const { userName, email, password } = user;
@@ -26,25 +19,10 @@ export const createUser = async (user: User): Promise<void> => {
   };
 
   // Function to get a user by their name (login)
-  export const getUserByEmail = async (email: string): Promise<User | undefined> => {
+export const getUserByEmail = async (email: string): Promise<User | undefined> => {
     try {
         const [results]: any = await pool.query('SELECT * FROM Users WHERE email = ?', [email]);
-
-        if (results.length > 0) {
-            const dbUser: DatabaseUser = results[0]; // Tipamos explícitamente como DatabaseUser
-
-            // Convertimos DatabaseUser a User
-            const user: User = {
-                id: dbUser.id,
-                userName: dbUser.userName,
-                email: dbUser.email,
-                password: dbUser.password_hash, // Mapeamos password_hash a password
-            };
-
-            return user;
-        }
-
-        return undefined; // No se encontró el usuario
+        return results.length > 0 ? results[0] : undefined;
     } catch (error) {
         console.error('Error at getting user by email', error);
         throw error;

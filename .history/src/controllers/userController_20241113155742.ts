@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { comparePassword } from '../middlewares/autenticador';
-import {addUser, getUserByUserEmail} from '../services/userServices';
+import {addUser, getUserByUsername} from '../services/userServices';
 import {SecureData} from '../models/secureDataModel';
 import { User } from '../models/userModel';
 
@@ -24,19 +24,17 @@ export async function addNewUser(req: Request, res: Response): Promise<Response 
 
 export async function loginUsuario(req: Request, res: Response): Promise<Response | void> {
     const { secureData } = req.body as { secureData: SecureData };
-    console.log('secureData = ',secureData);
 
   try {
-      console.log('Trying to get user by email:', secureData.email);
-      const user = await _getUserByemail(secureData.email);
+      console.log('Trying to get user by name:', secureData.userName);
+      const user = await getUserByUsername(secureData.userName);
 
       if (!user) {
           console.log('User not found');
-          return res.status(404).send('Incorrect email');
+          return res.status(404).send('Incorrect user');
       }
 
       console.log('User Found:', user);
-
 
       const validPassword = await comparePassword(secureData.password, user.password);
 
@@ -59,9 +57,9 @@ export async function loginUsuario(req: Request, res: Response): Promise<Respons
   }
 }
 
-async function _getUserByemail(userName: string): Promise<User | undefined> {
+async function _getUserByUsername(userName: string): Promise<User | undefined> {
   try {
-      const user = await getUserByUserEmail(userName);
+      const user = await getUserByUsername(userName);
       return user;
   } catch (error) {
       console.error('Error getting user by name:', error);

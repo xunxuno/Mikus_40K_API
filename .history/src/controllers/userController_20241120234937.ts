@@ -24,10 +24,9 @@ export async function addNewUser(req: Request, res: Response): Promise<Response 
 
 export async function loginUsuario(req: Request, res: Response): Promise<Response | void> {
     const { secureData } = req.body as { secureData: SecureData };
-    console.log('secureData = ',secureData);
 
   try {
-      console.log('Trying to get user by email:', secureData.email);
+      console.log('Trying to get user by email:', secureData.userName);
       const user = await _getUserByemail(secureData.email);
 
       if (!user) {
@@ -36,7 +35,6 @@ export async function loginUsuario(req: Request, res: Response): Promise<Respons
       }
 
       console.log('User Found:', user);
-
 
       const validPassword = await comparePassword(secureData.password, user.password);
 
