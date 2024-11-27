@@ -27,21 +27,15 @@ export const getOrCreateCart = async (req: Request, res: Response) => {
   }
 };
 
-export const addProductToCart = async (req: Request, res: Response) => {
+export const addProductToCart = async (req: RequestWithUser, res: Response) => {
   try {
-    const { secureData } = req.body as { secureData: SecureData }; // Extract SecureData
     const { productId, quantity } = req.body;
+    const userId = getUserIdFromRequest(req);
 
-    if (!secureData || !secureData.email) {
-      return res.status(400).json({ mensaje: 'SecureData with email is required' });
+    if (!userId) {
+      return res.status(401).json({ mensaje: 'Usuario no autenticado' });
     }
 
-    const user = await getUserByEmail(secureData.email);
-    if (!user || user.id === undefined) {
-      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
-    }
-
-    const userId = user.id;
     const cart = await CartService.getOrCreateCart(userId);
     await CartService.addProductToCart(cart.id, productId, quantity);
 
@@ -52,3 +46,20 @@ export const addProductToCart = async (req: Request, res: Response) => {
   }
 };
 
+export const clearUserCart = async (req: RequestWithUser, res: Response) => {
+  try {
+    const userId = getUserIdFromRequest(req);
+
+    if (!userId) {
+      return res.status(401).json({ mensaje: 'Usuario no autenticado' });
+    }
+
+    const cart = await CartService.getOrCreateCart(userId);
+    await CartService.clearUserCart(cart.id);
+
+    res.status(200).json({ mensaje: 'Carrito limpiado' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al limpiar el carrito' });
+  }
+};

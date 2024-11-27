@@ -52,3 +52,20 @@ export const addProductToCart = async (req: Request, res: Response) => {
   }
 };
 
+export const clearUserCart = async (req: RequestWithUser, res: Response) => {
+  try {
+    const userId = getUserIdFromRequest(req);
+
+    if (!userId) {
+      return res.status(401).json({ mensaje: 'Usuario no autenticado' });
+    }
+
+    const cart = await CartService.getOrCreateCart(userId);
+    await CartService.clearUserCart(cart.id);
+
+    res.status(200).json({ mensaje: 'Carrito limpiado' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al limpiar el carrito' });
+  }
+};

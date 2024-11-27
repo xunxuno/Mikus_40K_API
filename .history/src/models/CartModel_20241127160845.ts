@@ -28,3 +28,11 @@ export const addItemToCart = async (cartId: number, productId: number, quantity:
     }
 };
 
+
+export const removeItemFromCart = async (cartId: number, productId: number) => {
+    await pool.query('DELETE FROM CartItems WHERE cart_id = ? AND product_id = ?', [cartId, productId]);
+};
+
+export const clearCart = async (cartId: number) => {
+    await pool.query('DELETE FROM CartItems WHERE cart_id = ?', [cartId]);
+};

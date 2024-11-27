@@ -59,6 +59,8 @@ CREATE TABLE IF NOT EXISTS OrderItems (
 
 SELECT * FROM Users ORDER BY id DESC;
 SELECT * FROM Products ORDER BY id DESC;
+SELECT * FROM Cart;
+SELECT * FROM CartItems;
 
 INSERT INTO Products (
     product_Name,

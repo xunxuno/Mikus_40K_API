@@ -20,3 +20,6 @@ export const addProductToCart = async (cartId: number, productId: number, quanti
   await CartModel.addItemToCart(cartId, productId, quantity, price);
 };
 
+export const clearUserCart = async (cartId: number) => {
+  await CartModel.clearCart(cartId);
+};

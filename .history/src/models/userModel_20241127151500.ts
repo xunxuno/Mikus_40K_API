@@ -16,7 +16,6 @@ export interface DatabaseUser {
 
 export interface RequestWithUser extends Express.Request {
     user?: User;
-    body: any; 
   }
 
 //Function to Add a new user
