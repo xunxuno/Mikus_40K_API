@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 
 // Definir CustomRequest para que reciba información del token (usuario)
-interface CustomRequest extends Request {
+export interface CustomRequest extends Request {
   user?: string | JwtPayload;
 }
 

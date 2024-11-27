@@ -20,6 +20,42 @@ CREATE TABLE IF NOT EXISTS Products (
     category ENUM('Miku', 'Warhammer') NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS Cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+CREATE TABLE IF NOT EXISTS CartItems (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cart_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    price INT NOT NULL,
+    FOREIGN KEY (cart_id) REFERENCES Cart(id),
+    FOREIGN KEY (product_id) REFERENCES Products(id)
+);
+
+CREATE TABLE IF NOT EXISTS Orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total_price INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+CREATE TABLE IF NOT EXISTS OrderItems (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    price INT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES Orders(id),
+    FOREIGN KEY (product_id) REFERENCES Products(id)
+);
+
+
 
 SELECT * FROM Users ORDER BY id DESC;
 SELECT * FROM Products ORDER BY id DESC;
