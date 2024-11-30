@@ -50,8 +50,8 @@ export async function loginUsuario(req: Request, res: Response): Promise<Respons
               process.env.JWT_SECRET as string,
               { expiresIn: '1h' }
           );
-          console.log('Returning token and userId:', { token, userId: user.id });
-          return res.status(200).json({ token, userId: user.id });
+          console.log('Returning token and userId:', { token, userId: user.id, userName: user.userName });
+          return res.status(200).json({ token, userId: user.id,  userName: user.userName});
       }
   } catch (error) {
       console.error('Error logging in user:', error);
