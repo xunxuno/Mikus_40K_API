@@ -3,7 +3,7 @@ import * as CartService from '../services/CartService';
 import { RequestWithUser , getUserByEmail} from '../models/userModel';
 import {SecureData} from '../models/secureDataModel';
 
-//const getUserIdFromRequest = (req: RequestWithUser): number | null => req.user?.id || null;
+const getUserIdFromRequest = (req: RequestWithUser): number | null => req.user?.id || null;
 
 export const getOrCreateCart = async (req: Request, res: Response) => {
   const { secureData } = req.body as { secureData: SecureData };
