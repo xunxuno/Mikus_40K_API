@@ -48,25 +48,17 @@ export const findPendingCartByUserId = async (userId: number): Promise<Cart | nu
   return (result as Cart[])[0] || null;
 };
 
-export const addItemToCart = async (
-  cartId: number,
-  productId: number,
-  quantity: number,
-  price: number
-): Promise<void> => {
-  const [cartResult] = await pool.query('SELECT state FROM Cart WHERE id = ?', [cartId]);
-  const cart = (cartResult as RowDataPacket[])[0];
-
-  if (!cart || cart.state !== 'pendiente') {
-      throw new Error('Cannot add items to a finalized cart.');
-  }
-
-  await pool.query(
-      'INSERT INTO CartItems (cart_id, product_id, quantity, price) VALUES (?, ?, ?, ?)',
-      [cartId, productId, quantity, price]
-  );
+export const addItemToCart = async (cartId: number, productId: number, quantity: number, price: number) => {
+    try {
+        await pool.query(
+            'INSERT INTO CartItems (cart_id, product_id, quantity, price) VALUES (?, ?, ?, ?)',
+            [cartId, productId, quantity, price]
+        );
+    } catch (error) {
+        console.error('Error at adding items', error);
+        throw error;
+    }
 };
-
 
 export const getCartItemsByCartId = async (cartId: number): Promise<CartItem[]> => {
     const [rows] = await pool.query<RowDataPacket[]>(
@@ -80,39 +72,3 @@ export const getCartItemsByCartId = async (cartId: number): Promise<CartItem[]> 
   export const getTotalPrice = (cartItems: any[]) => {
     return cartItems.reduce((total, item) => total + (item.quantity * item.price), 0);
   };
-
-  export const updateCartItemQuantity = async (cartId: number, productId: number, quantity: number): Promise<void> => {
-    try {
-        await pool.query(
-            'UPDATE CartItems SET quantity = ? WHERE cart_id = ? AND product_id = ?',
-            [quantity, cartId, productId]
-        );
-    } catch (error) {
-        console.error('Error updating cart item quantity:', error);
-        throw error;
-    }
-};
-
-export const removeItemFromCart = async (cartId: number, productId: number): Promise<void> => {
-  try {
-      await pool.query(
-          'DELETE FROM CartItems WHERE cart_id = ? AND product_id = ?',
-          [cartId, productId]
-      );
-  } catch (error) {
-      console.error('Error removing item from cart:', error);
-      throw error;
-  }
-};
-
-export const clearCart = async (cartId: number): Promise<void> => {
-  try {
-      await pool.query(
-          'DELETE FROM CartItems WHERE cart_id = ?',
-          [cartId]
-      );
-  } catch (error) {
-      console.error('Error clearing cart:', error);
-      throw error;
-  }
-};

@@ -80,39 +80,3 @@ export const getCartItemsByCartId = async (cartId: number): Promise<CartItem[]> 
   export const getTotalPrice = (cartItems: any[]) => {
     return cartItems.reduce((total, item) => total + (item.quantity * item.price), 0);
   };
-
-  export const updateCartItemQuantity = async (cartId: number, productId: number, quantity: number): Promise<void> => {
-    try {
-        await pool.query(
-            'UPDATE CartItems SET quantity = ? WHERE cart_id = ? AND product_id = ?',
-            [quantity, cartId, productId]
-        );
-    } catch (error) {
-        console.error('Error updating cart item quantity:', error);
-        throw error;
-    }
-};
-
-export const removeItemFromCart = async (cartId: number, productId: number): Promise<void> => {
-  try {
-      await pool.query(
-          'DELETE FROM CartItems WHERE cart_id = ? AND product_id = ?',
-          [cartId, productId]
-      );
-  } catch (error) {
-      console.error('Error removing item from cart:', error);
-      throw error;
-  }
-};
-
-export const clearCart = async (cartId: number): Promise<void> => {
-  try {
-      await pool.query(
-          'DELETE FROM CartItems WHERE cart_id = ?',
-          [cartId]
-      );
-  } catch (error) {
-      console.error('Error clearing cart:', error);
-      throw error;
-  }
-};

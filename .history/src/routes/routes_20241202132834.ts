@@ -21,25 +21,28 @@ router.post('/cart', (req, res) => {
 });
 
 // Agregar producto al carrito
-router.post('/cart/add', (req, res) => {
+router.post('/add', (req, res) => {
     addProductToCartController(req, res);
 });
 
 // Modificar cantidad de producto en el carrito
-router.put('/cart/update-quantity', (req, res) => {
+router.put('/update-quantity', (req, res) => {
     updateProductQuantityController(req, res);
 });
 
 // Eliminar producto del carrito
-router.delete('/cart/remove-product', (req, res) => {
+router.delete('/remove-product', (req, res) => {
     removeProductFromCartController(req, res);
 });
 
 // Eliminar carrito completo
-router.delete('/cart/clear', (req, res) => {
+router.delete('/clear', (req, res) => {
     deleteCartController(req, res);
 });
 
+/*router.post('/cart/items', (req, res) => {
+    addProductToCart(req, res);
+});*/
 
 router.post('/create-order', (req, res) => {
     createOrderFromCartController(req, res);
