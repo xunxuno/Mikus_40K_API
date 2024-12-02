@@ -26,6 +26,9 @@ CREATE TABLE IF NOT EXISTS Cart (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+ALTER TABLE cart
+ADD COLUMN state ENUM('pendiente', 'finalizado') DEFAULT 'pendiente';
+
 
 CREATE TABLE IF NOT EXISTS CartItems (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -61,6 +64,7 @@ SELECT * FROM Users ORDER BY id DESC;
 SELECT * FROM Products ORDER BY id DESC;
 SELECT * FROM Cart;
 SELECT * FROM CartItems;
+SELECT * FROM Orders ORDER BY id DESC;
 
 INSERT INTO Products (
     product_Name,
@@ -76,6 +80,24 @@ VALUES (
     'Figura de Hatsune Miku de los angeles sangrientos.', 
     1500, 
     'src/dataBase/Images/miku_w_1.jpeg', 
+    'Standard', 
+    200, 
+    'Warhammer'
+);
+INSERT INTO Products (
+    product_Name,
+    product_Description,
+    price,
+    image_path,
+    shippingType,
+    shippingPrice,
+    category
+) 
+VALUES (
+    'Miku Ultramarine Figure', 
+    'Figura de Hatsune Miku de los ultramarines.', 
+    1200, 
+    'src/dataBase/Images/miku_w_2.jpeg', 
     'Standard', 
     200, 
     'Warhammer'
