@@ -81,6 +81,8 @@ SELECT * FROM Cart;
 SELECT * FROM CartItems;
 SELECT * FROM Orders ORDER BY id DESC;
 
+
+
 INSERT INTO Products (
     product_Name,
     product_Description,
@@ -94,7 +96,7 @@ VALUES (
     'Miku blood angel Figure', 
     'Figura de Hatsune Miku de los angeles sangrientos.', 
     1500, 
-    'src/dataBase/Images/miku_w_1.jpeg', 
+    'src/images/products_IMG/img_1.webp', 
     'Standard', 
     200, 
     'Warhammer'
@@ -112,7 +114,7 @@ VALUES (
     'Miku Ultramarine Figure', 
     'Figura de Hatsune Miku de los ultramarines.', 
     1200, 
-    'src/dataBase/Images/miku_w_2.jpeg', 
+    'src/images/products_IMG/img_2.webp', 
     'Standard', 
     200, 
     'Warhammer'
