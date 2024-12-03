@@ -23,11 +23,11 @@ export const getProductById = async (id: number): Promise<Product | null> => {
   return product || null;
 };
 
-export const searchProductsByName = async (product_Name: string) => {
+export const searchProductsByName = async (name: string) => {
   const query = `
     SELECT * FROM Products
-    WHERE product_Name LIKE ?;
+    WHERE name LIKE ?;
   `;
-  const results = await pool.query(query, [`%${product_Name}%`]);
+  const results = await pool.query(query, [`%${name}%`]);
   return results[0];
 };

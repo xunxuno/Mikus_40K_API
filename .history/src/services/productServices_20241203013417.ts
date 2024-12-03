@@ -13,12 +13,12 @@ async function getAllTheproducts(): Promise<Product[]> {
   }
 }
 
-export const searchProductsByName_ = async (product_Name: string) => {
-  if (!product_Name) {
+export const searchProductsByName_ = async (name: string) => {
+  if (!name) {
     throw new Error("El nombre del producto no puede estar vacío");
   }
 
-  const products = await searchProductsByName(product_Name);
+  const products = await searchProductsByName(name);
   return products;
 };
 

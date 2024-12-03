@@ -12,10 +12,10 @@ export const getProducts = async (req: Request, res: Response): Promise<void> =>
 };
 
 export const searchProductsByName = async (req: Request, res: Response): Promise<void> => {
-  const { product_Name } = req.query;
+  const { name } = req.query;
 
   try {
-    const products = await searchProductsByName_(product_Name as string);
+    const products = await searchProductsByName_(name as string);
     res.status(200).json(products);
   } catch (error) {
     console.error('Error searching products in controller:', error);

@@ -28,6 +28,6 @@ export const searchProductsByName = async (product_Name: string) => {
     SELECT * FROM Products
     WHERE product_Name LIKE ?;
   `;
-  const results = await pool.query(query, [`%${product_Name}%`]);
+  const results = await pool.query(query, [`%${name}%`]);
   return results[0];
 };
