@@ -1,4 +1,4 @@
-import { createOrder, getOrdersByUserId, Order  } from '../models/orderModel';
+import { createOrder, getOrdersByUserId  } from '../models/orderModel';
 import { createOrderItem } from '../models/orderItemModel';
 import { getCartItemsByCartId, getTotalPrice, updateCartState } from '../models/CartModel';
 
