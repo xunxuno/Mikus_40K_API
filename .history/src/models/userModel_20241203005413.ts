@@ -71,7 +71,7 @@ export const createUser = async (user: User): Promise<void> => {
 };
 
 // Función para crear o actualizar detalles de usuario
-export const createUserDetails = async (details: UserDetails): Promise<void> => {
+export const createOrUpdateUserDetails = async (details: UserDetails): Promise<void> => {
     const query = `
       INSERT INTO UserDetails (user_id, first_name, last_name, phone_number, country, city, zip_code, street, house_number)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)

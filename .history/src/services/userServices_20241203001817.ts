@@ -1,4 +1,4 @@
-import {User ,createUser, getUserByEmail, createUserDetails, getUserDetailsById, UserDetails, updateUserDetails} from '../models/userModel';
+import {User ,createUser, getUserByEmail, createOrUpdateUserDetails, getUserDetailsById} from '../models/userModel';
 
 async function addUser(name: string, email: string, password: string): Promise<void> {
     try {
@@ -26,20 +26,12 @@ async function getUserByUserEmail(email: string): Promise<User | undefined> {
     }
 }
 
-export const saveUserDetails = async (details: UserDetails): Promise<void> => {
-    await createUserDetails(details);
+export const saveUserDetails = async (details: userModel.UserDetails): Promise<void> => {
+    await createOrUpdateUserDetails(details);
   };
   
-  export const updateUserDetails_ = async (details: UserDetails): Promise<string> => {
-    try {
-      await updateUserDetails(details);
-      return "Detalles del usuario actualizados correctamente";
-    } catch (error) {
-      throw new Error("Error al actualizar los detalles del usuario");
-    }
-  };
-
-  export const fetchUserDetails = async (userId: number): Promise<UserDetails | null> => {
+  // Obtener detalles de usuario
+  export const fetchUserDetails = async (userId: number): Promise<userModel.UserDetails | null> => {
     return await getUserDetailsById(userId);
   };
 

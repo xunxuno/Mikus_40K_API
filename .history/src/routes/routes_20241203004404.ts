@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getProducts } from '../controllers/productController';
-import { addNewUser, loginUsuario, createUserDetails, getUserDetails, updateUserDetails } from '../controllers/userController';
+import { addNewUser, loginUsuario, updateUserDetails, getUserDetails } from '../controllers/userController';
 import {getOrCreateCartController, addProductToCartController, updateProductQuantityController, removeProductFromCartController, deleteCartController,} from '../controllers/CartController';
 import { createOrderFromCartController } from '../controllers/orderController';
 
@@ -16,13 +16,11 @@ router.post('/singUp', (req, res) => {
 });
 
 router.post('/user-details', (req, res) => {
-    createUserDetails(req, res);
-});
-
-router.put('/user-details/update', (req, res) => {
     updateUserDetails(req, res);
 });
-
+router.put('/user-details', (req, res) => {
+    updateUserDetails(req, res);
+});
 router.get('/user-details/:userId', getUserDetails);
 
 

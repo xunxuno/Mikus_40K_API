@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { comparePassword } from '../middlewares/autenticador';
-import {addUser, getUserByUserEmail, saveUserDetails, fetchUserDetails, updateUserDetails_} from '../services/userServices';
+import {addUser, getUserByUserEmail, saveUserDetails, fetchUserDetails} from '../services/userServices';
 import {SecureData} from '../models/secureDataModel';
 import { User } from '../models/userModel';
 
@@ -70,10 +70,10 @@ async function _getUserByemail(userName: string): Promise<User | undefined> {
 }
 
 
-export const createUserDetails = async (req: Request, res: Response): Promise<void> => {
+export const updateUserDetails = async (req: Request, res: Response): Promise<void> => {
     const { user_id, first_name, last_name, phone_number, country, city, zip_code, street, house_number } = req.body;
   
-    if (!user_id || !first_name || !last_name || !phone_number ||!country || !city || !zip_code || !street || !house_number) {
+    if (!user_id || !first_name || !last_name || !phone_number ||!country || !city || !zip_code || street || house_number) {
       res.status(400).json({ error: 'Campos obligatorios faltantes' });
       return;
     }
@@ -90,9 +90,9 @@ export const createUserDetails = async (req: Request, res: Response): Promise<vo
         street,
         house_number,
       });
-      res.status(200).json({ message: 'Detalles de usuario creados correctamente' });
+      res.status(200).json({ message: 'Detalles de usuario actualizados correctamente' });
     } catch (error) {
-      console.error('Error al actualizar crear de usuario:', error);
+      console.error('Error al actualizar detalles de usuario:', error);
       res.status(500).json({ error: 'Error del servidor' });
     }
   };
@@ -116,17 +116,5 @@ export const createUserDetails = async (req: Request, res: Response): Promise<vo
     } catch (error) {
       console.error('Error al obtener detalles de usuario:', error);
       res.status(500).json({ error: 'Error del servidor' });
-    }
-  };
-
-  export const updateUserDetails = async (req: Request, res: Response): Promise<void> => {
-    const details = req.body;
-  
-    try {
-      const message = await updateUserDetails_(details);
-      res.status(200).json({ mensaje: message });
-    } catch (error) {
-        console.error('Error al actualizar detalles de usuario:', error);
-        res.status(500).json({ error: 'Error del servidor' });
     }
   };

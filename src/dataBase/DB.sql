@@ -9,6 +9,20 @@ CREATE TABLE IF NOT EXISTS Users(
     password_hash VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS UserDetails (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(15),
+    country VARCHAR(50) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    zip_code VARCHAR(5) NOT NULL,
+    street VARCHAR(100),
+    house_number VARCHAR(10),
+    FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS Products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     product_Name VARCHAR(255) NOT NULL,
@@ -61,6 +75,7 @@ CREATE TABLE IF NOT EXISTS OrderItems (
 
 
 SELECT * FROM Users ORDER BY id DESC;
+SELECT * FROM UserDetails ORDER BY id DESC;
 SELECT * FROM Products ORDER BY id DESC;
 SELECT * FROM Cart;
 SELECT * FROM CartItems;

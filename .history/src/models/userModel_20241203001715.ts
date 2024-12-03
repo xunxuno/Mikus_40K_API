@@ -71,7 +71,7 @@ export const createUser = async (user: User): Promise<void> => {
 };
 
 // Función para crear o actualizar detalles de usuario
-export const createUserDetails = async (details: UserDetails): Promise<void> => {
+export const createOrUpdateUserDetails = async (details: UserDetails): Promise<void> => {
     const query = `
       INSERT INTO UserDetails (user_id, first_name, last_name, phone_number, country, city, zip_code, street, house_number)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -99,47 +99,6 @@ export const createUserDetails = async (details: UserDetails): Promise<void> => 
     ];
   
     await pool.query(query, values);
-  };
-  
-
-  export const updateUserDetails = async (details: UserDetails): Promise<void> => {
-    const {
-      user_id,
-      first_name,
-      last_name,
-      phone_number,
-      country,
-      city,
-      zip_code,
-      street,
-      house_number,
-    } = details;
-  
-    const query = `
-      UPDATE UserDetails
-      SET 
-        first_name = ?,
-        last_name = ?,
-        phone_number = ?,
-        country = ?,
-        city = ?,
-        zip_code = ?,
-        street = ?,
-        house_number = ?
-      WHERE user_id = ?
-    `;
-  
-    await pool.query(query, [
-      first_name,
-      last_name,
-      phone_number,
-      country,
-      city,
-      zip_code,
-      street,
-      house_number,
-      user_id,
-    ]);
   };
   
   // Función para obtener detalles de usuario
