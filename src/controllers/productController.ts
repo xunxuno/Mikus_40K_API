@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getAllTheproducts, searchProductsByName_ } from '../services/productServices';
+import { getAllTheproducts, searchProductsByName_, fetchProductDetails  } from '../services/productServices';
 
 export const getProducts = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -23,3 +23,17 @@ export const searchProductsByName = async (req: Request, res: Response): Promise
   }
 };
   
+export const getProductDetails = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+
+  try {
+    const product = await fetchProductDetails(Number(id));
+    if (!product) {
+      res.status(404).json({ message: 'Producto no encontrado' });
+      return;
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: 'Error searching products' });
+  }
+};

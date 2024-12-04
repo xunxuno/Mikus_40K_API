@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getProducts, searchProductsByName } from '../controllers/productController';
+import { getProducts, searchProductsByName , getProductDetails} from '../controllers/productController';
 import { addNewUser, loginUsuario, createUserDetails, getUserDetails, updateUserDetails } from '../controllers/userController';
 import {getOrCreateCartController, addProductToCartController, updateProductQuantityController, removeProductFromCartController, deleteCartController, getCartProductByUserId, getCartItems } from '../controllers/CartController';
 import { createOrderFromCartController, fetchOrdersByUserId } from '../controllers/orderController';
@@ -9,6 +9,8 @@ const router = Router();
 router.get('/products', getProducts);
 
 router.get('/products/search', searchProductsByName);
+
+router.get('/product-details/:id', getProductDetails);
 
 router.post('/singIn', (req, res) => {
     addNewUser(req, res);

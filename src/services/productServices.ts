@@ -1,4 +1,4 @@
-import { Product, getAllProducts, searchProductsByName } from '../models/productModel';
+import { Product, getAllProducts, searchProductsByName, getProductById} from '../models/productModel';
 
 async function getAllTheproducts(): Promise<Product[]> {
   try {
@@ -22,4 +22,12 @@ export const searchProductsByName_ = async (product_Name: string) => {
   return products;
 };
 
+export const fetchProductDetails = async (id: number): Promise<Product | null> => {
+  try {
+    const product = await getProductById(id);
+    return product;
+  } catch (error) {
+    throw new Error('Error al obtener los detalles del producto');
+  }
+};
 export { getAllTheproducts };
