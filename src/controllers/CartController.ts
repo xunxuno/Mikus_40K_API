@@ -1,6 +1,6 @@
 //import {SecureData} from '../models/secureDataModel';
 import { Request, Response } from 'express';
-import { getOrCreatePendingCart, addProductToCartService, updateProductQuantityService, removeProductFromCartService, deleteCartService, getCartProductQuantity} from '../services/CartService';
+import { getOrCreatePendingCart, addProductToCartService, updateProductQuantityService, removeProductFromCartService, deleteCartService, getCartProductQuantity, fetchCartItems} from '../services/CartService';
 
 export const getOrCreateCartController = async (req: Request, res: Response) => {
     try {
@@ -101,5 +101,22 @@ export const getCartProductByUserId = async (req: Request, res: Response): Promi
     } catch (error) {
       console.error('Error en el controlador al obtener producto del carrito:', error);
       res.status(500).json({ message: 'Error al obtener el producto en el carrito.' });
+    }
+  };
+
+  export const getCartItems = async (req: Request, res: Response): Promise<void> => {
+    const { cartId } = req.params;
+  
+    if (!cartId) {
+      res.status(400).json({ error: 'Se requiere el ID del carrito.' });
+      return;
+    }
+  
+    try {
+      const cartItems = await fetchCartItems(Number(cartId));
+      res.status(200).json(cartItems);
+    } catch (error: any) {
+      console.error('Error al obtener los elementos del carrito:', error.message);
+      res.status(500).json({ error: 'No se pudieron obtener los elementos del carrito.' });
     }
   };

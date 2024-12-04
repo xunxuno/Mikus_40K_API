@@ -1,5 +1,5 @@
 import { getProductById } from '../models/productModel';
-import { createCart, findPendingCartByUserId, addItemToCart, updateCartItemQuantity, removeItemFromCart, clearCart, findCartProduct} from '../models/CartModel';
+import { createCart, findPendingCartByUserId, addItemToCart, updateCartItemQuantity, removeItemFromCart, clearCart, findCartProduct, getCartItemsByCartId, CartItem} from '../models/CartModel';
 
 export const getOrCreatePendingCart = async (userId: number): Promise<number> => {
     try {
@@ -96,5 +96,15 @@ export const getCartProductQuantity = async (cart_id: number, productId: number)
     } catch (error) {
       console.error('Error en el servicio al obtener el producto del carrito:', error);
       throw new Error('No se pudo obtener la información del producto en el carrito.');
+    }
+  };
+
+  export const fetchCartItems = async (cartId: number): Promise<CartItem[]> => {
+    try {
+      const cartItems = await getCartItemsByCartId(cartId);
+      return cartItems;
+    } catch (error) {
+      console.error(`Error al obtener los elementos del carrito con ID ${cartId}:`, error);
+      throw new Error('No se pudieron obtener los elementos del carrito.');
     }
   };

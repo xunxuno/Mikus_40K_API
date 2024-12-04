@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getProducts, searchProductsByName } from '../controllers/productController';
 import { addNewUser, loginUsuario, createUserDetails, getUserDetails, updateUserDetails } from '../controllers/userController';
-import {getOrCreateCartController, addProductToCartController, updateProductQuantityController, removeProductFromCartController, deleteCartController, getCartProductByUserId } from '../controllers/CartController';
+import {getOrCreateCartController, addProductToCartController, updateProductQuantityController, removeProductFromCartController, deleteCartController, getCartProductByUserId, getCartItems } from '../controllers/CartController';
 import { createOrderFromCartController, fetchOrdersByUserId } from '../controllers/orderController';
 
 const router = Router();
@@ -58,6 +58,9 @@ router.get('/cart/product/:cart_id/:productId', (req, res) => {
     getCartProductByUserId(req, res);
 });
 
+router.get('/cart/:cartId/items', (req, res) => {
+    getCartItems(req, res);
+});
 
 router.post('/create-order', (req, res) => {
     createOrderFromCartController(req, res);
