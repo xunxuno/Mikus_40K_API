@@ -57,8 +57,10 @@ CREATE TABLE IF NOT EXISTS CartItems (
 ALTER TABLE cart
 ADD COLUMN state ENUM('pendiente', 'finalizado') DEFAULT 'pendiente';
 
+DROP TABLE CartItems;
+
 ALTER TABLE CartItems
-ADD COLUMN product_name VARCHAR(255) NOT NULL;
+ADD COLUMN product_name VARCHAR(255);
 
 UPDATE CartItems
 JOIN Products ON CartItems.product_id = Products.id
