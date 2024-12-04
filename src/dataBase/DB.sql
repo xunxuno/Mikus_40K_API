@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS Products (
     shippingPrice INT NOT NULL,
     category ENUM('Miku', 'Warhammer') NOT NULL
 );
+ALTER TABLE Products ADD UNIQUE (product_Name);
+
 
 CREATE TABLE IF NOT EXISTS Cart (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -40,8 +42,7 @@ CREATE TABLE IF NOT EXISTS Cart (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
-ALTER TABLE cart
-ADD COLUMN state ENUM('pendiente', 'finalizado') DEFAULT 'pendiente';
+
 
 
 CREATE TABLE IF NOT EXISTS CartItems (
@@ -53,6 +54,23 @@ CREATE TABLE IF NOT EXISTS CartItems (
     FOREIGN KEY (cart_id) REFERENCES Cart(id),
     FOREIGN KEY (product_id) REFERENCES Products(id)
 );
+ALTER TABLE cart
+ADD COLUMN state ENUM('pendiente', 'finalizado') DEFAULT 'pendiente';
+
+ALTER TABLE CartItems
+ADD COLUMN product_name VARCHAR(255) NOT NULL;
+
+UPDATE CartItems
+JOIN Products ON CartItems.product_id = Products.id
+SET CartItems.product_name = Products.product_Name;
+
+ALTER TABLE CartItems
+ADD CONSTRAINT fk_product_name FOREIGN KEY (product_name) REFERENCES Products(product_Name);
+
+
+
+
+
 
 CREATE TABLE IF NOT EXISTS Orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -81,6 +99,12 @@ SELECT * FROM Cart;
 SELECT * FROM CartItems;
 SELECT * FROM Orders ORDER BY id DESC;
 
+UPDATE Products
+SET image_path = 'src/images/products_IMG/img_1.webp'
+WHERE id= 1;
+UPDATE Products
+SET image_path = 'src/images/products_IMG/img_2.webp'
+WHERE id= 2;
 
 
 INSERT INTO Products (
