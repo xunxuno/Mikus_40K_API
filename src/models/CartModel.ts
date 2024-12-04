@@ -15,6 +15,7 @@ export interface CartItem {
     product_id: number;
     quantity: number;
     price: number;
+    product_name: string
   }
 
   export const createCart = async (userId: number): Promise<number> => {
