@@ -122,7 +122,7 @@ VALUES (
     'Miku blood angel Figure', 
     'Figura de Hatsune Miku de los angeles sangrientos.', 
     1500, 
-    'public/images/products_IMG/img_1.webp'
+    'public/images/products_IMG/img_1.webp',
     'Standard', 
     200, 
     'Warhammer'
@@ -140,7 +140,7 @@ VALUES (
     'Miku Ultramarine Figure', 
     'Figura de Hatsune Miku de los ultramarines.', 
     1200, 
-    'public/images/products_IMG/img_2.webp'
+    'public/images/products_IMG/img_2.webp',
     'Standard', 
     200, 
     'Warhammer'
