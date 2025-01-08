@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `mikus_40k` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `mikus_40k`;
 -- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: mikus_40k
@@ -163,7 +161,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'Miku blood angel Figure','Figura de Hatsune Miku de los angeles sangrientos.',1500,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer'),(2,'Miku Ultramarine Figure','Figura de Hatsune Miku de los ultramarines.',1200,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer'),(3,'Miku dark angel Figure','Figura de Hatsune Miku de los angeles oscuros.',1800,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer'),(4,'Miku salamandra chapter Figure','Figura de Hatsune Miku del capitulo de las salamandras.',1100,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer'),(5,'Miku inquisitor Figure','Figura de Hatsune Miku inquisora del ordo XENOS.',1700,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer'),(6,'Miku assesinorum Figure','Figura de Hatsune Miku asesina del templo CAEDUS.',1900,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer'),(7,'Miku Grey Knight Figure','Figura de Hatsune Miku caballera gris.',2300,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer'),(8,'Miku pool party Figure','Figura de Hatsune Miku en traje de baño.',8300,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer'),(9,'Miku Nurse Figure','Figura de Hatsune Miku en traje de enfermera.',5300,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer'),(10,'Miku Battle sister Figure','Figura de Hatsune Miku de hermana de batalla.',5300,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer');
+INSERT INTO `products` VALUES (1,'Miku blood angel Figure','Figura de Hatsune Miku de los angeles sangrientos.',1500,'public/images/products_IMG/img_1.webp','Standard',200,'Warhammer'),(2,'Miku Ultramarine Figure','Figura de Hatsune Miku de los ultramarines.',1200,'public/images/products_IMG/img_2.webp','Standard',200,'Warhammer'),(3,'Miku dark angel Figure','Figura de Hatsune Miku de los angeles oscuros.',1800,'public/images/products_IMG/img_3.webp','Standard',200,'Warhammer'),(4,'Miku salamandra chapter Figure','Figura de Hatsune Miku del capitulo de las salamandras.',1100,'public/images/products_IMG/img_4.webp','Standard',200,'Warhammer'),(5,'Miku inquisitor Figure','Figura de Hatsune Miku inquisora del ordo XENOS.',1700,'public/images/products_IMG/img_5.webp','Standard',200,'Warhammer'),(6,'Miku assesinorum Figure','Figura de Hatsune Miku asesina del templo CAEDUS.',1900,'public/images/products_IMG/img_6.webp','Standard',200,'Warhammer'),(7,'Miku Grey Knight Figure','Figura de Hatsune Miku caballera gris.',2300,'public/images/products_IMG/img_7.webp','Standard',200,'Warhammer'),(8,'Miku pool party Figure','Figura de Hatsune Miku en traje de baño.',8300,'public/images/products_IMG/img_8.webp','Standard',200,'Warhammer'),(9,'Miku Nurse Figure','Figura de Hatsune Miku en traje de enfermera.',5300,'public/images/products_IMG/img_9.webp','Standard',200,'Warhammer'),(10,'Miku Battle sister Figure','Figura de Hatsune Miku de hermana de batalla.',5300,'public/images/products_IMG/img_10.webp','Standard',200,'Warhammer');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,4 +236,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-07 21:00:13
+-- Dump completed on 2025-01-07 23:00:22
